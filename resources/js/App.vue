@@ -1,6 +1,7 @@
 <template>
     <Navbar/>
-    <IndexView/>
+    <HomeView/>
+    <!-- <IndexView/> -->
 </template>
 
 <script setup>

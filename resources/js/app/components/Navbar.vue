@@ -37,11 +37,11 @@ import { RouterLink } from 'vue-router';
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-4">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <RouterLink href="/register" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Dashboard</RouterLink>
-            <RouterLink href="/register" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Register</RouterLink>
-            <RouterLink href="/login" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Login</RouterLink>
-            <RouterLink href="/tasks" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Task</RouterLink>
-            <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
+            <RouterLink to="/" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Home</RouterLink>
+            <RouterLink to="/register" activeClass="bg-green-600 text-white" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-green-700 hover:text-white">Register</RouterLink>
+            <RouterLink to="/login" activeClass="bg-green-600 text-white"  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-green-700 hover:text-white">Login</RouterLink>
+            <RouterLink to="/tasks" activeClass="bg-green-600 text-white"  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-green-700 hover:text-white">Task</RouterLink>
+            <a to="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-green-700 hover:text-white">Calendar</a>
           </div>
         </div>
       </div>

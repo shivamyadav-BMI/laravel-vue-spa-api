@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CompleteTaskController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionController;
 use App\Http\Controllers\V1\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -11,7 +12,7 @@ Route::get('/', function () {
 
 
 Route::post("/register", [RegisterController::class, 'store']);
-// Route::post("/login", [RegisterController::class, 'store']);
+Route::post("/login", SessionController::class);
 Route::delete("/logout", [RegisterController::class, 'destroy']);
 
 Route::prefix('/v1')->group(function () {

@@ -6,10 +6,10 @@
             </div>
         </div>
         <!-- incompleted tasks -->
-        <div class="p-4  rounded border border-gray-100 shadow mb-5 " v-if="store.uncompletedTasks.length">
+        <div class="p-4 rounded border border-gray-100 shadow mb-5 " v-if="store.uncompletedTasks.length">
             <h2 class="text-xl font-semibold my-3">Uncompleted Tasks</h2>
             <div v-for="task in store.uncompletedTasks" :key="task.id"
-                class="flex gap-5 items-center border-b border-gray-300  h-20">
+                class="flex gap-5 items-center  ">
                 <TaskItem :tasks="tasks" :task="task" />
             </div>
         </div>
@@ -25,7 +25,7 @@
         <div v-show="store.showCompletedTasks" class="p-4  rounded border border-gray-100 shadow "
             v-if="store.completedTasks.length">
             <h2 class="text-xl font-semibold my-3">Completed Tasks</h2>
-            <div v-for="task in store.completedTasks" :key="task.id" class="flex gap-5 items-center justify-between">
+            <div v-for="task in store.completedTasks" :key="task.id" class="flex gap-5 items-center justify-between border-b border-gray-300  h-20">
                 <TaskItem :task="task" />
             </div>
         </div>
@@ -43,32 +43,13 @@ import useTaskStore from '../../../store/taskStore';
 
 const store = useTaskStore();
 
-// const tasks = ref([]);
-// const showCompletedTasks = ref(false);
-
 onMounted(async () => {
     store.getAllTasks();
 });
 
-watch(store.tasks.value, async () => {
-    console.log("watching...");
-        store.getAllTasks();
+// watch(store.tasks.value, async () => {
+//     console.log("watching...");
+//         store.getAllTasks();
 
-});
-
-// const completedTasks = computed(() => tasks.value.filter((task) => task.completed));
-// const uncompletedTasks = computed(() => tasks.value.filter((task) => !task.completed));
-
-// function to toggle the completed tasks hide and show
-// function toggleCompletedTasks() {
-//     showCompletedTasks.value = !showCompletedTasks.value;
-// }
-
-// // function to create new task
-// const handleAddedTask = async (newTask) => {
-//     if (newTask.title.trim() == '') return;
-//     const res = await storeTask(newTask);
-//     tasks.value.unshift(newTask);
-// }
-
+// });
 </script>

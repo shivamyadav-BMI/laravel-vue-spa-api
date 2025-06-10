@@ -1,9 +1,10 @@
 <template>
-    <AuthLayout>
-        Home page
-    </AuthLayout>
+    <!-- <AuthLayout> -->
+        <RouterView></RouterView>
+    <!-- </AuthLayout> -->
 </template>
 
 <script setup>
+import { RouterView } from "vue-router";
 import AuthLayout from "../layouts/AuthLayout.vue";
 </script>
