@@ -12,7 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->statefulApi(); //treated to be as session based auth for spa (cookie based auth)
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
