@@ -10,10 +10,10 @@ class CompleteTaskController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Task $task)
+    public function __invoke(Task $task, Request $request)
     {
         $task->update([
-            'completed' => 1
+            'completed' => $request->completed
         ]);
         return response()->json([
             'message' => 'Task has been completed'
