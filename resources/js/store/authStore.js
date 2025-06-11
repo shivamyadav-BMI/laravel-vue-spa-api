@@ -96,6 +96,7 @@ const useAuthStore = defineStore("auth-store", function () {
         user,
         form,
         errors,
+        emptyForm,
     }
 });
 

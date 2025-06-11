@@ -1,7 +1,7 @@
 <template>
     <!-- sidebar -->
     <Navbar />
-
+    <slot></slot>
 
 
 </template>

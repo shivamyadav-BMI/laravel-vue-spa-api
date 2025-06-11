@@ -1,7 +1,8 @@
 <template>
-    <!-- <AuthLayout> -->
-        <RouterView></RouterView>
-    <!-- </AuthLayout> -->
+    <AuthLayout>
+        home
+        <!-- <RouterView></RouterView> -->
+    </AuthLayout>
 </template>
 
 <script setup>

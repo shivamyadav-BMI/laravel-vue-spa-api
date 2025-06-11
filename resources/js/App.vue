@@ -1,11 +1,8 @@
 <template>
-    <Navbar/>
-    <HomeView/>
-    <!-- <IndexView/> -->
+     <RouterView></RouterView>
 </template>
 
 <script setup>
-import Navbar from "./app/components/Navbar.vue";
-import HomeView from "./app/views/HomeView.vue";
-import IndexView from "./app/Views/Tasks/IndexView.vue";
+import { RouterView } from "vue-router";
+
 </script>
