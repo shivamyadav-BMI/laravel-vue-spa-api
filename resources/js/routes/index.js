@@ -21,12 +21,18 @@ const router = createRouter({
         {
             path: "/register",
             component: Register,
-            name: "register"
+            name: "register",
+            meta: {
+                guest : true
+            }
         },
         {
             path: "/login",
             component: LoginView,
-            name: "login"
+            name: "login",
+            meta: {
+                guest : true
+            }
         },
         {
             path: "/tasks",
@@ -40,16 +46,19 @@ const router = createRouter({
     history: createWebHistory()
 });
 
-router.beforeEach((to, from) => {
+router.beforeEach(async (to, from) => {
     const store = useAuthStore();
     const route = useRouter();
+
+    await store.fetchUser(); //to set the auth user
+    store.errors = null; //on every reload or navigation null the errors
 
     // redirect the user to the login page if they are not authenticated
     if (to.meta.auth && !store.isLoggedIn) {
         route.push("/login");
     }
     // user should not able to access the register and login if they are authenticated user
-     if (to.meta.auth && store.isLoggedIn) {
+    if (to.meta.guest && store.isLoggedIn) {
         route.push("/");
     }
 });

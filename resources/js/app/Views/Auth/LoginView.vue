@@ -1,39 +1,37 @@
 <template>
-
-
     <div class="mt-20 rounded-lg max-w-xl mx-auto p-4 border border-gray-100 shadow">
-        <form @submit.prevent="store.loginUser" class="max-w-xl mx-auto">
+        <form @submit.prevent="login" class="max-w-xl mx-auto">
             <h3 class="text-center font-semibold text-xl my-5">Login to you account.</h3>
-        <div class="mb-5">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-            <input type="email" id="email" v-model="store.form.email"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="name@flowbite.com" required />
-        </div>
-        <div class="mb-5">
-            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
-                password</label>
-            <input type="password" id="password" v-model="store.form.password"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required />
-        </div>
-        <div class="flex items-start mb-5">
-            <div class="flex items-center h-5">
-                <input id="remember" type="checkbox" value=""
-                    class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                    required />
-            </div>
-            <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
-        </div>
-        <button type="submit"
-            class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full cursor-pointer px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-    </form>
+            <InputGroup label="your email" v-model="form.email" :errors="errors?.email"/>
+            <InputGroup label="your password" type="password" v-model="form.password" :errors="errors?.password"/>
+            <button type="submit"
+                class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full cursor-pointer px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+        </form>
     </div>
 </template>
 
 <script setup>
+import {
+    useRouter
+} from 'vue-router';
 import useAuthStore from '../../../store/authStore';
+import {
+    storeToRefs
+} from 'pinia';
+import InputGroup from '../../components/forms/InputGroup.vue';
 
 const store = useAuthStore();
+const {
+    errors,
+    form
+} = storeToRefs(useAuthStore());
+const router = useRouter();
+const login = async () => {
+    await store.loginUser();
+    // is user is logged in then redirect to the homepage
+    if (store.isLoggedIn) {
+        router.push("/");
 
+    }
+}
 </script>
