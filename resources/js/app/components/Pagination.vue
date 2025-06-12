@@ -1,6 +1,10 @@
 <template>
-    <div class="flex gap-3 justify-end" v-if="pagination.per_page <= pagination.total">
-        <div v-for="link in pagination.links">
+    <div class="lg:flex justify-between items-center gap-5" v-if="pagination.per_page <= pagination.total">
+        <h1 class="">
+            Showing from {{ pagination.from }} to {{ pagination.to }} of {{ pagination.total }}
+        </h1>
+        <div class="flex gap-3 justify-end">
+            <div v-for="link in pagination.links">
             <button
                 :class="[
                 'rounded-lg bg-gray-200  px-3 py-1 hover:text-white hover:bg-teal-500',
@@ -20,7 +24,7 @@
                 {'cursor-pointer' : !isDisabled(link)}
                 ]"
                 :disabled="isDisabled(link)"
-                @click="store.fetchAllRole(link.label)"
+                @click="props.fetch(link.label)"
                 v-if="isLink(link)"
                 v-html="link.label">
             </button>
@@ -36,6 +40,7 @@
                 v-if="isNext(link)"
                 v-html="link.label">
             </button>
+            </div>
         </div>
     </div>
 </template>
@@ -45,7 +50,8 @@ import useRoleStore from '../../store/admin/roleStore';
 import usePagination from '../composables/usePagination';
 
     const props =defineProps({
-        pagination : Object
+        pagination : Object,
+        fetch : Function,
     })
 
     const store =  useRoleStore();
@@ -69,5 +75,6 @@ import usePagination from '../composables/usePagination';
     }
 
     // pagination composables
-    const {nextPage,previousPage} = usePagination(store.fetchAllRole);
+    // const {nextPage,previousPage} = usePagination(store.fetchAllRole);
+    const {nextPage,previousPage} = usePagination(props.fetch);
 </script>

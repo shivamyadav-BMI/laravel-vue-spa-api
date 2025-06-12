@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 import { destroy, edit, allRoles, store, update, csrfCookie } from "../../http/admin/role-api";
-import usePagination from "../../app/composables/usePagination";
 
 
 const useRoleStore = defineStore("roles-store", function () {
@@ -22,20 +21,6 @@ const useRoleStore = defineStore("roles-store", function () {
         roles.value = data.roles;
     };
 
-    // function previousPage(pagination)
-    // {
-    //     let prev = pagination.current_page - 1;
-    //     fetchAllRole(prev);
-    // }
-
-    // function nextPage(pagination)
-    // {
-    //     let next = pagination.current_page + 1;
-    //     fetchAllRole(next);
-
-    // }
-    // const pagination = () =>  usePagination(page, fetchAllRole);
-
 
     const storeRole = async () => {
         try {
@@ -43,6 +28,7 @@ const useRoleStore = defineStore("roles-store", function () {
             await csrfCookie();
             await store(data);
             errors.value = null;
+            form.role = '';
             return true;
         } catch (error) {
             if (error && error.response.status === 422) {
@@ -52,17 +38,19 @@ const useRoleStore = defineStore("roles-store", function () {
         }
     };
 
-    const editRole = async () => {
+    const editRole = async (id) => {
         await csrfCookie();
-        await edit()
+        const  { data } = await edit(id);
+        form.role = data.role.role;
     }
 
-    const updateRole = async () => {
+    const updateRole = async (id) => {
         try {
             let data = { ...form };
             await csrfCookie();
-            await update(data);
+            await update(id,data);
             errors.value = null;
+            form.role = '';
             return true;
         } catch (error) {
             if (error && error.response.status === 422) {
@@ -71,10 +59,11 @@ const useRoleStore = defineStore("roles-store", function () {
             return false;
         }
     };
-    const deleteRole = async () => {
+    const deleteRole = async (id) => {
         try {
             await csrfCookie();
             await destroy(id);
+            await fetchAllRole();
             return true;
         } catch (error) {
             return false;
@@ -90,8 +79,6 @@ const useRoleStore = defineStore("roles-store", function () {
         deleteRole,
         fetchAllRole,
         roles,
-        // pagination,
-
     }
 });
 

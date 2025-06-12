@@ -15,6 +15,7 @@ import CategoryEditView from "../app/Views/admin/categories/EditView.vue";
 import RoleIndexView from "../app/Views/admin/roles/RoleIndexView.vue";
 import RoleCreateView from "../app/Views/admin/roles/RoleCreateView.vue";
 import RoleEditview from "../app/Views/admin/roles/RoleEditview.vue";
+import useCategoryStore from "../store/admin/categoryStore";
 
 
 
@@ -156,11 +157,17 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
     const store = useAuthStore();
+    const category = useCategoryStore();
     const route = useRouter();
 
-    await store.fetchUser(); //to set the auth user
+    if(!store.auth?.user)
+    {
+        await store.fetchUser(); //to set the auth user
+    }
     store.errors = null; //on every reload or navigation null the errors
     store.emptyForm(); //on every reload or navigation null the auth form
+    category.errors = null;
+    category.form.name = '';
 
     // redirect the user to the login page if they are not authenticated
     if (to.meta.auth && !store.isLoggedIn) {

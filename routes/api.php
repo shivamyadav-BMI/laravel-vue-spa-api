@@ -7,6 +7,7 @@ use App\Http\Controllers\CompleteTaskController;
 use App\Http\Controllers\LogoutController as ControllersLogoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\V1\admin\AdminCategoryController;
 use App\Http\Controllers\V1\admin\RoleController;
 use App\Http\Controllers\V1\TaskController;
 use Illuminate\Support\Facades\Auth;
@@ -37,4 +38,5 @@ Route::prefix('/v1')->group(function () {
 // admin routes
 Route::middleware(['auth'])->prefix('/admin')->group(function (){
     Route::apiResource("/roles", RoleController::class)->only(['index','store','edit','update','destroy']);
+    Route::apiResource("/categories", AdminCategoryController::class)->only(['index','store','edit','update','destroy']);
 });

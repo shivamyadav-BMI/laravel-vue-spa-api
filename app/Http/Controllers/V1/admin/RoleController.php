@@ -15,7 +15,7 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $page = $request->page ?? 1;
-        $roles = Role::with('users')->latest()->paginate(1,['*'], 'page', $page);
+        $roles = Role::with('users')->latest()->paginate(5,['*'], 'page', $page);
         return response()->json([
             'roles' => $roles
         ]);
@@ -31,7 +31,7 @@ class RoleController extends Controller
             'role' => 'required|min:3|string'
         ]);
 
-        Auth::user()->role()->create($attributes);
+        Role::create($attributes);
         return response()->json([
             'message' => 'Role has been created.'
         ]);
@@ -56,7 +56,7 @@ class RoleController extends Controller
             'role' => 'required|min:3|string'
         ]);
 
-        Auth::user()->role()->update($attributes);
+        $role->update($attributes);
         return response()->json([
             'message' => 'Role has been created.'
         ]);
