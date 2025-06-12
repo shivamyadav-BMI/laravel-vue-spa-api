@@ -12,9 +12,10 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $roles = Role::with('users')->latest()->paginate(2);
+        $page = $request->page ?? 1;
+        $roles = Role::with('users')->latest()->paginate(1,['*'], 'page', $page);
         return response()->json([
             'roles' => $roles
         ]);

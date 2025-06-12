@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 import { destroy, edit, allRoles, store, update, csrfCookie } from "../../http/admin/role-api";
+import usePagination from "../../app/composables/usePagination";
 
 
 const useRoleStore = defineStore("roles-store", function () {
@@ -12,11 +13,29 @@ const useRoleStore = defineStore("roles-store", function () {
 
     const errors = ref(null);
 
-    const fetchAllRole = async () => {
+    // for pagination
+    const page = ref(1);
+
+    const fetchAllRole = async (page) => {
         await csrfCookie();
-        const { data } = await allRoles();
+        const { data } = await allRoles(page);
         roles.value = data.roles;
     };
+
+    // function previousPage(pagination)
+    // {
+    //     let prev = pagination.current_page - 1;
+    //     fetchAllRole(prev);
+    // }
+
+    // function nextPage(pagination)
+    // {
+    //     let next = pagination.current_page + 1;
+    //     fetchAllRole(next);
+
+    // }
+    // const pagination = () =>  usePagination(page, fetchAllRole);
+
 
     const storeRole = async () => {
         try {
@@ -71,6 +90,8 @@ const useRoleStore = defineStore("roles-store", function () {
         deleteRole,
         fetchAllRole,
         roles,
+        // pagination,
+
     }
 });
 
