@@ -8,6 +8,7 @@ use App\Http\Controllers\LogoutController as ControllersLogoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\V1\admin\AdminCategoryController;
+use App\Http\Controllers\V1\admin\AdminProductController;
 use App\Http\Controllers\V1\admin\RoleController;
 use App\Http\Controllers\V1\TaskController;
 use Illuminate\Support\Facades\Auth;
@@ -39,4 +40,9 @@ Route::prefix('/v1')->group(function () {
 Route::middleware(['auth'])->prefix('/admin')->group(function (){
     Route::apiResource("/roles", RoleController::class)->only(['index','store','edit','update','destroy']);
     Route::apiResource("/categories", AdminCategoryController::class)->only(['index','store','edit','update','destroy']);
+
+    // load all the categories for products forms
+    Route::get("/api/admin/products/categories",[AdminProductController::class, 'getCategories']);
+    Route::apiResource("/products", AdminProductController::class)->only(['index','store','edit','update','destroy']);
+
 });
